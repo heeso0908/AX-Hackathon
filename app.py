@@ -1090,13 +1090,13 @@ def render_metrics(result: dict) -> None:
     summary = result["summary"]
     quality = result["quality_summary"]
     cards = [
-        ("즉시 대응 큐", f"{summary['cs_immediate_count']:,}", "CS 에스컬레이션 우선 확인"),
+        ("CS ?? ?? ??", f"{summary['cs_immediate_count']:,}", "CS? ?? ?? ??"),
         ("이탈 위험", f"{summary['churn_risk_count']:,}", "불만/긴급도 기반 추적 필요"),
-        ("제품 백로그 후보", f"{summary['product_candidate_count']:,}", "제품팀 검토 대상"),
+        ("?? ?? ?? ??", f"{summary['product_candidate_count']:,}", "??? ?? ??"),
         ("FAQ 전환 후보", f"{summary['faq_candidate_count']:,}", "반복 문의 문서화 가능"),
         ("총 유입 VoC", f"{quality['row_count_before']:,}", f"정제 후 {quality['row_count_after']:,}건 유지"),
         ("불만", f"{count_by_type(summary, '불만'):,}", "CS 원인 분류 필요"),
-        ("기능 요청", f"{count_by_type(summary, '기능 요청'):,}", "백로그 매핑 필요"),
+        ("?? ??", f"{count_by_type(summary, '?? ??'):,}", "?? ?? ?? ??"),
         ("중복 제거", f"{len(quality['duplicates_removed']):,}", "콘텐츠 중복 기준 정리"),
     ]
 
@@ -1116,7 +1116,7 @@ def render_workflow() -> None:
         ("3", "CS 분류", "불만, 기능 요청, 칭찬, 일반 문의로 1차 트리아지를 수행합니다."),
         ("4", "이슈 집계", "토픽, 긴급도, 고객군 기준으로 반복 패턴을 묶습니다."),
         ("5", "운영 인사이트", "즉시 대응 건과 제품 전달 이슈를 분리해 정리합니다."),
-        ("6", "후속 액션", "CS 리포트와 제품 백로그 문서를 생성합니다."),
+        ("6", "?? ??", "CS ???? ?? ?? ?? ?? ??"),
     ]
     html = ['<div class="workflow-grid">']
     for number, title, desc in steps:
@@ -1172,7 +1172,7 @@ def render_dashboard_overview(result: dict) -> None:
             <div class="dashboard-card">
                 <div class="card-label">즉시 대응</div>
                 <div class="card-title">즉시 대응 필요 건</div>
-                <div class="card-subtitle">High urgency 또는 계약/이탈 리스크가 큰 건을 CS팀이 먼저 확인할 수 있게 정리했습니다.</div>
+                <div class="card-subtitle">??? ?? ? ?? ??/?? ???? ? ?? CS?? ?? ??? ? ?? ??????.</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -1256,9 +1256,9 @@ def render_proposals(result: dict) -> None:
     st.markdown(
         """
         <div class="dashboard-card">
-            <div class="card-label">제품 백로그</div>
+            <div class="card-label">?? ?? ??</div>
             <div class="card-title">제품팀 전달 후보</div>
-            <div class="card-subtitle">반복 VoC를 기능/운영 개선 백로그로 묶고 우선순위 점수로 정렬했습니다.</div>
+            <div class="card-subtitle">?? VoC? ??/?? ?? ??? ?? ???? ??? ??????.</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -1432,9 +1432,9 @@ def render_proposal_tab(result: dict) -> None:
     st.markdown(
         """
         <div class="dashboard-card">
-            <div class="card-label">구글시트 내보내기</div>
-            <div class="card-title">TSV 내보내기</div>
-            <div class="card-subtitle">구글시트 셀에 바로 입력할 수 있는 탭 구분 텍스트입니다. 복사 버튼으로 전체를 클립보드에 담을 수 있습니다.</div>
+            <div class="card-label">구글시트 자동 기입</div>
+            <div class="card-title">개인 계정 연동</div>
+            <div class="card-subtitle">구글시트에 바로 반영되는 형태로 연결했습니다. 복사 버튼으로 결과를 바로 사용할 수 있습니다.</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -1534,7 +1534,7 @@ def render_upload_tab(original_result: dict) -> None:
             {"지표": "기능 요청", "기본 데이터": count_by_type(original_result["summary"], "기능 요청"), "업로드 데이터": count_by_type(uploaded_result["summary"], "기능 요청")},
             {"지표": "칭찬", "기본 데이터": count_by_type(original_result["summary"], "칭찬"), "업로드 데이터": count_by_type(uploaded_result["summary"], "칭찬")},
             {"지표": "일반 문의", "기본 데이터": count_by_type(original_result["summary"], "일반 문의"), "업로드 데이터": count_by_type(uploaded_result["summary"], "일반 문의")},
-            {"지표": "High urgency", "기본 데이터": original_result["summary"]["cs_immediate_count"], "업로드 데이터": uploaded_result["summary"]["cs_immediate_count"]},
+            {"지표": "?? ?? ??", "기본 데이터": original_result["summary"]["cs_immediate_count"], "업로드 데이터": uploaded_result["summary"]["cs_immediate_count"]},
             {"지표": "제품 후보", "기본 데이터": original_result["summary"]["product_candidate_count"], "업로드 데이터": uploaded_result["summary"]["product_candidate_count"]},
         ]
     )
@@ -1743,7 +1743,7 @@ with hero_left:
                 CS 큐, 반복 이슈, 데이터 품질, 주간 리포트
             </div>
             <div class="hero-actions">
-                <span class="hero-chip">즉시 대응 큐</span>
+                <span class="hero-chip">CS ?? ?? ??</span>
                 <span class="hero-chip">이탈 위험 추적</span>
                 <span class="hero-chip">제품 전달 후보</span>
                 <span class="hero-chip">주간 리포트</span>
