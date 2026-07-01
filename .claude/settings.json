@@ -82,7 +82,8 @@
       "Bash(git branch *)",
       "Bash(git push *)",
       "Bash(tasklist)",
-      "Bash(rm -f .git/index.lock)"
+      "Bash(rm -f .git/index.lock)",
+      "Bash(git rm *)"
     ],
     "additionalDirectories": [
       "\\tmp"

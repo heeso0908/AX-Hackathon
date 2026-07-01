@@ -809,25 +809,44 @@ TYPE_BADGE_CLASS = {
 URGENCY_BADGE_CLASS = {"High": "badge-high", "Medium": "badge-medium", "Low": "badge-low"}
 
 
+class TrustedHtml(str):
+    """직접 생성한 신뢰된 HTML 조각(배지 등) 표시용 마커.
+
+    render_html_table_html은 기본적으로 모든 셀 값을 escape하지만, 이 타입으로
+    감싼 값만은 이미 안전하게 생성된 HTML이므로 escape 없이 그대로 삽입한다.
+    """
+
+
 def type_badge(voc_type: str) -> str:
+    # voc_type은 classify.py가 고정된 값(불만/기능 요청/칭찬/일반 문의)만 반환하므로
+    # VoC 원문이 그대로 흘러들어올 수 없다 — 신뢰된 HTML로 취급한다.
     badge_class = TYPE_BADGE_CLASS.get(voc_type, "badge-neutral")
-    return f'<span class="badge {badge_class}">{voc_type}</span>'
+    return TrustedHtml(f'<span class="badge {badge_class}">{html.escape(str(voc_type))}</span>')
 
 
 def urgency_badge(urgency: str) -> str:
+    # urgency도 classify.py가 고정된 값(High/Medium/Low)만 반환한다.
     badge_class = URGENCY_BADGE_CLASS.get(urgency, "badge-neutral")
-    return f'<span class="badge {badge_class}">{urgency}</span>'
+    return TrustedHtml(f'<span class="badge {badge_class}">{html.escape(str(urgency))}</span>')
 
 
 def render_html_table(headers: list[str], rows: list[list[str]]) -> None:
     st.markdown(render_html_table_html(headers, rows), unsafe_allow_html=True)
 
 
+def _escape_cell(value) -> str:
+    # TrustedHtml로 감싼 값(배지 등 직접 생성한 HTML)만 예외적으로 escape하지 않는다.
+    # 그 외에는 VoC 원문(사용자 입력)이 그대로 담길 수 있으므로 항상 escape한다.
+    if isinstance(value, TrustedHtml):
+        return value
+    return html.escape(str(value))
+
+
 def render_html_table_html(headers: list[str], rows: list[list[str]]) -> str:
-    header_html = "".join(f"<th>{header}</th>" for header in headers)
+    header_html = "".join(f"<th>{_escape_cell(header)}</th>" for header in headers)
     body_html = ""
     for row in rows:
-        cells = "".join(f"<td>{cell}</td>" for cell in row)
+        cells = "".join(f"<td>{_escape_cell(cell)}</td>" for cell in row)
         body_html += f"<tr>{cells}</tr>"
 
     return (
@@ -851,6 +870,9 @@ def set_selected_menu(menu_name: str) -> None:
 
 
 def format_inline_markdown(text: str) -> str:
+    # VoC 원문이 섞여 들어올 수 있는 리포트 본문이므로 먼저 escape한 뒤,
+    # 그 위에 마크다운 강조 문법만 안전하게 HTML로 치환한다.
+    text = html.escape(text)
     text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
     text = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", text)
     return text
@@ -1212,13 +1234,18 @@ def render_insights(result: dict) -> None:
         unsafe_allow_html=True,
     )
     for index, insight_item in enumerate(result["insights"], start=1):
+        # insight 문구는 VoC 원문 인용을 포함할 수 있으므로 렌더링 전에 escape한다.
+        title = html.escape(str(insight_item["title"]))
+        observation = html.escape(str(insight_item["observation"]))
+        business_meaning = html.escape(str(insight_item["business_meaning"]))
+        recommended_action = html.escape(str(insight_item["recommended_action"]))
         st.markdown(
             f"""
             <div class="insight-card">
-                <div class="insight-title">{index}. {insight_item['title']}</div>
-                <p><span class="field-label">핵심 내용</span><br>{insight_item['observation']}</p>
-                <p><span class="field-label">업무 의미</span><br>{insight_item['business_meaning']}</p>
-                <p><span class="field-label">권장 액션</span><br>{insight_item['recommended_action']}</p>
+                <div class="insight-title">{index}. {title}</div>
+                <p><span class="field-label">핵심 내용</span><br>{observation}</p>
+                <p><span class="field-label">업무 의미</span><br>{business_meaning}</p>
+                <p><span class="field-label">권장 액션</span><br>{recommended_action}</p>
             </div>
             """,
             unsafe_allow_html=True,
@@ -1247,15 +1274,17 @@ def render_proposals(result: dict) -> None:
                 f'<span class="score-chip">구현 난이도 {scores["effort_score"]}</span>',
             ]
         )
+        # render_html_table_html이 내부적으로 escape하므로 여기서는 원본 값만 전달한다
+        # (이중 escape 방지).
         evidence_table_html = render_html_table_html(
             ["ID", "고객군", "유형", "긴급도", "원문"],
             [
                 [
-                    html.escape(str(row["id"])),
-                    html.escape(str(row["customer_type"])),
-                    html.escape(str(row["voc_type"])),
-                    html.escape(str(row["urgency"])),
-                    html.escape(str(row["quote"])),
+                    str(row["id"]),
+                    str(row["customer_type"]),
+                    str(row["voc_type"]),
+                    str(row["urgency"]),
+                    str(row["quote"]),
                 ]
                 for row in proposal["evidence_rows"]
             ],
