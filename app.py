@@ -11,12 +11,14 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 import clean  # noqa: E402
 import config  # noqa: E402
 import pipeline  # noqa: E402
+import sheets_export  # noqa: E402
 
 HEADER_LOGO_PATH = Path(__file__).parent / "logo.svg"
 FAVICON_PATH = Path(__file__).parent / "logo_mini.png"
@@ -1245,6 +1247,19 @@ def render_proposals(result: dict) -> None:
                 f'<span class="score-chip">구현 난이도 {scores["effort_score"]}</span>',
             ]
         )
+        evidence_table_html = render_html_table_html(
+            ["ID", "고객군", "유형", "긴급도", "원문"],
+            [
+                [
+                    html.escape(str(row["id"])),
+                    html.escape(str(row["customer_type"])),
+                    html.escape(str(row["voc_type"])),
+                    html.escape(str(row["urgency"])),
+                    html.escape(str(row["quote"])),
+                ]
+                for row in proposal["evidence_rows"]
+            ],
+        )
         st.markdown(
             f"""
             <div class="plan-card">
@@ -1263,15 +1278,13 @@ def render_proposals(result: dict) -> None:
                 <p><span class="field-label">핵심 기능</span><br>{proposal['content']['key_feature']}</p>
                 <p><span class="field-label">자동화 방식</span><br>{proposal['content']['automation']}</p>
                 <p><span class="field-label">1차 범위</span><br>{proposal['content']['mvp_v1']}</p>
+                <div class="field-label" style="margin-top:16px;">근거 VoC</div>
+                {evidence_table_html}
             </div>
             """,
             unsafe_allow_html=True,
         )
-        evidence_df = pd.DataFrame(proposal["evidence_rows"]).rename(
-            columns={"id": "ID", "customer_type": "고객군", "voc_type": "유형", "urgency": "긴급도", "quote": "원문"}
-        )
-        st.dataframe(evidence_df, width="stretch", hide_index=True)
-        render_block_gap()
+        render_block_gap(18)
 
 
 def render_overview_tab(result: dict) -> None:
@@ -1378,13 +1391,76 @@ def render_proposal_tab(result: dict) -> None:
     )
     render_block_gap(10)
     render_proposals(result)
-    render_block_gap()
+    render_block_gap(4)
     st.download_button(
         "제품 개선안 .md 다운로드",
         data=result["proposal_md"],
         file_name="product_improvement_plan.md",
         mime="text/markdown",
         key="download_product_plan_md",
+    )
+    render_block_gap(48)
+    st.markdown(
+        """
+        <div class="dashboard-card">
+            <div class="card-label">구글시트 내보내기</div>
+            <div class="card-title">TSV 내보내기</div>
+            <div class="card-subtitle">구글시트 셀에 바로 입력할 수 있는 탭 구분 텍스트입니다. 복사 버튼으로 전체를 클립보드에 담을 수 있습니다.</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    tsv_text = result.get("sheets_export_tsv")
+    if tsv_text is None:
+        tsv_text = sheets_export.build_tsv(result["classified_df"])
+    copy_markup = html.escape(tsv_text)
+    components.html(
+        f"""
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0 12px;">
+            <button id="copy-tsv-btn" style="
+                border:none;
+                border-radius:999px;
+                padding:10px 16px;
+                background:#10B69F;
+                color:#fff;
+                font-weight:700;
+                cursor:pointer;
+                box-shadow:0 10px 20px rgba(22,163,74,0.18);
+            ">TSV 복사</button>
+            <span id="copy-tsv-status" style="color:#6B7280;font-size:13px;">버튼을 누르면 클립보드에 복사됩니다.</span>
+        </div>
+        <textarea id="tsv-source" readonly style="
+            width:100%;
+            height:260px;
+            resize:vertical;
+            border:1px solid #E5E7EB;
+            border-radius:18px;
+            padding:14px 16px;
+            font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+            font-size:12px;
+            line-height:1.6;
+            box-sizing:border-box;
+            background:#F8FAFC;
+        ">{copy_markup}</textarea>
+        <script>
+        const button = document.getElementById('copy-tsv-btn');
+        const source = document.getElementById('tsv-source');
+        const status = document.getElementById('copy-tsv-status');
+        button.addEventListener('click', async () => {{
+            try {{
+                await navigator.clipboard.writeText(source.value);
+                status.textContent = 'TSV가 복사되었습니다.';
+                button.textContent = '복사 완료';
+            }} catch (err) {{
+                source.focus();
+                source.select();
+                status.textContent = '클립보드가 막혀 있어 텍스트를 선택했습니다.';
+                button.textContent = '수동 복사';
+            }}
+        }});
+        </script>
+        """,
+        height=380,
     )
 
 
