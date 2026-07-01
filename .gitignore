@@ -1,0 +1,12 @@
+# 구글 서비스 계정 자격증명 (실제 개인 키 포함, 절대 커밋하지 않음)
+monday-likes-baseball-495518-79876d4e2178.json
+*service_account*.json
+*credentials*.json
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Streamlit 업로드 임시 산출물 (매 업로드마다 덮어써지는 폴더)
+output/uploaded/

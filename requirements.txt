@@ -1,0 +1,10 @@
+pandas
+python-dateutil
+tabulate
+jinja2
+streamlit
+
+# 구글시트 자동 기입(선택 기능, --push-sheets)을 쓰려면 아래 두 패키지를 추가로 설치하세요.
+# 설치하지 않아도 기본 파이프라인과 sheets_export.tsv(수동 붙여넣기용) 생성은 그대로 동작합니다.
+# gspread
+# google-auth
