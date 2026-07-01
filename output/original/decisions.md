@@ -1,7 +1,7 @@
 # 실행 결정 로그
 
 - dataset_label: original
-- 입력 파일: C:\Users\yjdk1\OneDrive\Desktop\AX 해커톤\해커톤\data\voc.csv
+- 입력 파일: data\voc.csv
 - 리포트 기간(week_label): 2026-05-02 ~ 2026-06-14
 - 기본 연도(default_year, 연도 없는 날짜 표기에 적용): 2026
 - 정제 전/후 행 수: 45 -> 44

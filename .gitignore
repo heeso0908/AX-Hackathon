@@ -10,3 +10,9 @@ venv/
 
 # Streamlit 업로드 임시 산출물 (매 업로드마다 덮어써지는 폴더)
 output/uploaded/
+
+# 로컬 데이터 품질 검증용 임시 파일 (제출물이 아닌 개인 테스트용)
+data/voc_dirty_test.csv
+output/quality_test/
+output/verification-report.md
+*셀프제작 가이드*.md

@@ -175,7 +175,9 @@ def clean_voc(df: pd.DataFrame, default_year: int = DEFAULT_YEAR) -> tuple:
     clean["week"] = clean["date_clean"].apply(_iso_week_label)
 
     # 7. content 완전 중복 -> 첫 번째 행만 유지
-    duplicate_mask = clean.duplicated(subset=["content"], keep="first")
+    # content가 빈 값("")인 행들은 서로 다른 문의일 수 있으므로 중복 판정에서 제외한다.
+    # (빈 값 기준으로 매칭하면 서로 무관한 결측 행들이 "중복"으로 오인되어 삭제되는 문제가 있었음)
+    duplicate_mask = clean.duplicated(subset=["content"], keep="first") & (clean["content"] != "")
     duplicates_removed = []
     for i in clean.index[duplicate_mask]:
         _append_flag(row_flags[i], "duplicate_content_removed")
@@ -393,3 +395,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
