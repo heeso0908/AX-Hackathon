@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>김희선 해커톤 발표자료</title>
+<style>
+  :root{
+    --font-family:'Pretendard','Pretendard Variable','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',-apple-system,BlinkMacSystemFont,sans-serif;
+    --blue:#4EC3F7;
+    --blue-dark:#2FADE9;
+    --blue-soft:#EAF8FE;
+    --text:#3B3B3D;
+    --muted:#8F8F92;
+    --light:#F6F7F8;
+    --line:#E7F1F6;
+    --card-line:#E3EEF3;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;font-family:var(--font-family);background:#F1F1F3;color:var(--text);-webkit-font-smoothing:antialiased;}
+  .deck{display:flex;flex-direction:column;align-items:center;gap:20px;padding:24px 16px;}
+  .frame{width:min(1180px,100%);overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.10);}
+  .scale{transform-origin:top left;}
+  .slide{width:1920px;height:1080px;overflow:hidden;position:relative;background:#fff;border-top:9px solid var(--blue);padding:82px 92px 72px;}
+  .slide::after{content:"";position:absolute;right:-220px;bottom:-260px;width:780px;height:780px;background:radial-gradient(circle, rgba(78,195,247,.18) 0%, rgba(234,248,254,.46) 42%, rgba(255,255,255,0) 70%);pointer-events:none;}
+  .slide > *{position:relative;z-index:1;}
+  .topline{display:flex;justify-content:space-between;align-items:center;padding:0 22px 24px;border-bottom:3px solid var(--line);margin-bottom:44px;}
+  .doc-label{font-size:23px;letter-spacing:.34em;color:#B8B8BA;font-weight:500;}
+  .page-no{font-size:23px;letter-spacing:.16em;color:#B8B8BA;font-weight:500;}
+  .section-title{display:flex;align-items:baseline;gap:22px;margin:0 0 22px 22px;}
+  .section-num{font-size:56px;line-height:1;font-weight:800;color:var(--blue);letter-spacing:-.03em;}
+  .section-name{font-size:48px;line-height:1.12;font-weight:800;color:#3A3A3C;letter-spacing:-.035em;}
+  .lead{font-size:24px;line-height:1.65;color:#4D4D50;margin:0 22px 36px;font-weight:500;}
+  .small-lead{font-size:21px;line-height:1.7;color:#6D6D70;margin:0;font-weight:500;}
+  .card{background:#fff;border:3px solid var(--card-line);border-radius:26px;box-shadow:0 8px 22px rgba(67,128,158,.035);padding:34px 38px;}
+  .card.soft{background:#F9FCFE;}
+  .card.blue{background:#EFF9FE;border-color:#BDEAFF;}
+  .pill{display:inline-flex;align-items:center;justify-content:center;background:var(--blue);color:#fff;border-radius:999px;padding:13px 42px;font-size:25px;font-weight:800;box-shadow:0 9px 16px rgba(78,195,247,.24);line-height:1;}
+  .mini-pill{display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;color:#444;border-radius:9px;padding:9px 22px;font-size:17px;font-weight:700;}
+  .num-badge{display:inline-flex;width:49px;height:49px;border-radius:12px;background:var(--blue);color:#fff;align-items:center;justify-content:center;font-size:22px;font-weight:800;box-shadow:0 8px 15px rgba(78,195,247,.26);flex:none;}
+  .card-title{font-size:28px;line-height:1.35;color:#333;font-weight:800;margin:24px 0 18px;letter-spacing:-.02em;}
+  .card-text{font-size:21px;line-height:1.67;color:#5D5D60;font-weight:500;margin:0;}
+  .note-bar{background:var(--blue-soft);border-radius:10px;padding:24px 34px;font-size:22px;font-weight:700;line-height:1.5;color:#3E3E40;}
+  .label-cell{display:inline-flex;align-items:center;justify-content:center;min-width:138px;background:#F5F5F5;border-radius:10px;padding:14px 22px;font-size:20px;font-weight:800;color:#444;}
+  .info-row{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center;padding:18px 0;border-bottom:2px solid #E3E3E3;}
+  .info-row:last-child{border-bottom:none;}
+  .info-value{font-size:23px;line-height:1.45;font-weight:600;color:#565659;}
+  .metric{background:#fff;border:3px solid var(--card-line);border-radius:22px;padding:30px;min-height:180px;display:flex;flex-direction:column;justify-content:center;}
+  .metric-label{font-size:21px;font-weight:700;color:#555;margin-bottom:16px;}
+  .metric-value{font-size:42px;font-weight:800;color:#333;line-height:1.1;}
+  .metric.blue{background:#EFF9FE;border-color:#9EE3FF;}
+  .metric.blue .metric-value{color:var(--blue-dark);}
+  .flow-step{display:flex;gap:18px;align-items:flex-start;padding:20px 0;border-bottom:2px dashed #D5D5D5;}
+  .flow-step:last-child{border-bottom:none;}
+  .flow-step p{font-size:23px;line-height:1.55;margin:4px 0 0;color:#4E4E51;font-weight:600;}
+  .impact-table{width:100%;border-collapse:separate;border-spacing:0;font-size:21px;overflow:hidden;border-radius:20px;border:3px solid var(--card-line);}
+  .impact-table th{background:var(--blue);color:#fff;font-size:22px;font-weight:800;padding:18px 20px;text-align:center;}
+  .impact-table th:first-child{text-align:left;}
+  .impact-table td{padding:19px 20px;border-bottom:2px solid #EEF3F6;font-weight:650;color:#4A4A4D;vertical-align:middle;background:#fff;}
+  .impact-table tr:last-child td{border-bottom:none;}
+  .impact-table td:nth-child(2){text-align:center;color:#8B8B8E;}
+  .impact-table td:nth-child(3){text-align:center;color:var(--blue-dark);font-weight:800;}
+  .check{display:flex;gap:14px;align-items:flex-start;margin:0 0 20px;}
+  .check span{color:var(--blue);font-size:26px;font-weight:900;line-height:1.1;}
+  .check p{font-size:23px;line-height:1.55;color:#4E4E51;margin:0;font-weight:600;}
+  .cover{padding:126px 140px 82px;display:flex;flex-direction:column;}
+  .cover .cover-label{font-size:24px;letter-spacing:.38em;color:#343436;font-weight:800;margin-bottom:96px;}
+  .cover h1{font-size:74px;line-height:1.18;font-weight:900;letter-spacing:-.055em;color:#39393B;margin:0;max-width:1280px;}
+  .cover h1 .blue-text{color:var(--blue-dark);}
+  .cover-sub{font-size:24px;line-height:1.65;color:#8C8C8F;font-weight:600;margin:44px 0 0;max-width:1120px;}
+  .contact{margin-top:auto;padding-top:48px;display:flex;gap:32px;align-items:center;font-size:22px;color:#3C3C3E;font-weight:700;}
+  .contact .line{width:75px;height:2px;background:#D6D6D8;margin-right:28px;}
+  .closing{display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 150px 90px;}
+  .closing h1{font-size:78px;line-height:1.16;font-weight:900;color:#3A3A3C;letter-spacing:-.05em;margin:0 0 28px;}
+  .closing h1 .blue-text{color:var(--blue-dark);}
+  .closing p{font-size:26px;line-height:1.72;color:#6A6A6D;font-weight:600;margin:0 auto 18px;max-width:1180px;}
+  .closing .bottom-contact{margin-top:70px;font-size:21px;font-weight:700;color:#3E3E40;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin:0 22px;}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;margin:0 22px;}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin:0 22px;}
+  .dashboard-mock{background:#F4F8FA;border:3px solid var(--card-line);border-radius:26px;padding:34px;min-height:470px;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+  .mock-title{font-size:25px;font-weight:800;color:#343436;margin-bottom:30px;}
+  .mock-cards{display:flex;gap:18px;margin-bottom:26px;}
+  .mock-card{background:#fff;border:2px solid #E5EEF3;border-radius:16px;padding:22px 26px;min-width:170px;text-align:center;}
+  .mock-label{font-size:16px;font-weight:700;color:#9A9A9D;margin-bottom:12px;}
+  .mock-value{font-size:38px;font-weight:900;color:#333;}
+  .mock-value.red{color:#E05252;}
+  .mock-link{font-size:21px;font-weight:700;color:#6A6A6D;}
+  .footer-strip{position:absolute;left:92px;right:92px;bottom:54px;background:#F5F5F5;border-radius:10px;padding:19px 34px;display:flex;gap:36px;align-items:center;font-size:18px;color:#555;z-index:2;}
+  .footer-strip strong{font-size:19px;color:#3D3D3F;}
+  @media print{
+    html,body{background:#fff;}
+    .deck{gap:0;padding:0;}
+    .frame{width:1123px;box-shadow:none;height:632px!important;break-after:page;page-break-after:always;}
+    .scale{transform:scale(.5849)!important;}
+    @page{size:A4 landscape;margin:0;}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- 00 Cover -->
+<div class="frame"><div class="scale"><section class="slide cover">
+  <div class="cover-label">AX HACKATHON 2026</div>
+  <h1>탄소규제 VoC를<br><span class="blue-text">CS 대응 우선순위</span>와<br><span class="blue-text">제품 개선 과제</span>로 전환하는<br>운영 파이프라인을 만들었습니다</h1>
+  <p class="cover-sub">리뉴어스랩(카본링크)의 VoC 분류·인사이트 리포트 과제를<br>CS팀과 제품팀이 함께 쓰는 주간 운영 흐름으로 확장한 결과물입니다.</p>
+  <div class="contact"><span class="line"></span><span>Kim Heeseon</span><span>Tel | 010-4916-5005</span><span>E-mail | yjdk123@naver.com</span></div>
+</section></div></div>
+
+<!-- 01 Summary -->
+<div class="frame"><div class="scale"><section class="slide">
+  <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">01</div></div>
+  <div class="section-title"><span class="section-num">01</span><span class="section-name">한 장 요약</span></div>
+  <p class="lead">CSV 한 장을 넣으면 정제·분류·집계·인사이트·리포트·제품 기획안까지 이어지는 운영 파이프라인입니다.</p>
+  <div class="grid-2" style="align-items:stretch;">
+    <div class="card" style="padding:42px 48px;">
+      <div class="pill">받은 문제</div>
+      <p class="card-text" style="margin-top:34px;font-size:23px;">“data/voc.csv 파일을 분석해 4유형(불만·요청·칭찬·문의)으로 분류하고,<br>유형별 건수·비율을 집계한 뒤, CSRD·CBAM 맥락에서 의미 있는 인사이트 3개를 도출해 리포트로 제출하세요.”</p>
+      <div style="height:34px"></div>
+      <div class="pill">만든 것</div>
+      <p class="card-text" style="margin-top:28px;font-size:23px;">새 CSV만 넣으면 주간 리포트와 제품 기획안까지 자동 생성되는<br>파이프라인과 CS/제품팀용 Streamlit 대시보드입니다.</p>
+    </div>
+    <div style="display:grid;grid-template-rows:1.2fr .8fr;gap:28px;">
+      <div class="card blue" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+        <div style="font-size:25px;font-weight:800;color:#2FADE9;margin-bottom:16px;">핵심 임팩트</div>
+        <div style="font-size:58px;font-weight:900;color:#2FADE9;letter-spacing:-.04em;">1~2시간 → 1회 실행</div>
+        <div style="font-size:24px;font-weight:800;color:#3A3A3C;margin-top:20px;">주간 인사이트 수동 정리 → CSV 업로드 후 즉시 생성</div>
+      </div>
+      <div class="note-bar" style="display:flex;align-items:center;gap:24px;">
+        <span style="font-size:34px;color:var(--blue-dark);">↗</span>
+        <div><strong>데모 링크</strong><br><a href="https://ax-hackathon-renewearth-lab.streamlit.app" target="_blank" rel="noopener" style="color:#2FADE9;word-break:break-all;text-decoration:none;">ax-hackathon-renewearth-lab.streamlit.app</a></div>
+      </div>
+    </div>
+  </div>
+</section></div></div>
+
+<!-- 02 Problem -->
+<div class="frame"><div class="scale"><section class="slide">
+  <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">02</div></div>
+  <div class="section-title"><span class="section-num">02</span><span class="section-name">문제 이해 — 수작업 리포트가 아니라 운영 병목 문제</span></div>
+  <p class="lead">과제의 핵심을 “인사이트 3개 작성”이 아니라, 매주 반복되는 CS 업무와 제품팀 전달 체계를 만드는 문제로 재정의했습니다.</p>
+  <div class="grid-4">
+    <div class="card"><span class="num-badge">01</span><div class="card-title">기업 원문 문제</div><p class="card-text">이메일·채널톡·미팅으로 들어오는 VoC가 엑셀에 수작업 정리되어 유형별 패턴 파악과 의사결정 활용이 어려움</p></div>
+    <div class="card"><span class="num-badge">02</span><div class="card-title">재정의한 문제</div><p class="card-text">신규 담당자가 규제 맥락을 몰라도<br>같은 기준으로 분류하고, 매주 같은<br>품질의 리포트를 만들 수 있어야 함</p></div>
+    <div class="card"><span class="num-badge">03</span><div class="card-title">Before</div><p class="card-text">문제 시나리오 기준 하루 20~30건<br> 문의를 수작업 분류하고, 제품팀 전달용 인사이트 정리에 주 1~2시간이 소요됨</p></div>
+    <div class="card"><span class="num-badge">04</span><div class="card-title">스코프</div><p class="card-text"><b>구현:</b> 분류·집계·리포트·기획안<br></bt>·시트용 내보내기<br><b>제외:</b> 실시간 채널 연동, 자동응답,<br>다국어, 실제 고객데이터</p></div>
+  </div>
+</section></div></div>
+
+<!-- 03 Approach -->
+<div class="frame"><div class="scale"><section class="slide">
+  <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">03</div></div>
+  <div class="section-title"><span class="section-num">03</span><span class="section-name">해결 접근 & 의사결정</span></div>
+  <p class="lead">비즈니스 사용자가 바로 쓰는 흐름을 우선하고, 재현 가능한 규칙 기반 파이프라인으로 설계했습니다.</p>
+  <div class="grid-2" style="gap:44px;">
+    <div>
+      <div class="pill" style="margin-left:20px;margin-bottom:28px;">핵심 흐름</div>
+      <div class="card">
+        <div class="flow-step"><span class="num-badge">01</span><p>VoC CSV 업로드 후 날짜·결측·중복을 정제</p></div>
+        <div class="flow-step"><span class="num-badge">02</span><p>불만 → 요청 → 칭찬 → 문의 우선순위로 4유형을 분류</p></div>
+        <div class="flow-step"><span class="num-badge">03</span><p>긴급도와 고객 임팩트를 산정해 CS 대응 큐 생성</p></div>
+        <div class="flow-step"><span class="num-badge">04</span><p>주간 리포트와 제품 기획안까지 자동으로 생성</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="pill" style="margin-left:20px;margin-bottom:28px;">판단과 검증</div>
+      <div class="card" style="padding:32px 42px;">
+        <div class="info-row"><span class="label-cell">버린 대안</span><div class="info-value">채널 결측을 최빈 채널로 채우면<br>분포가 왜곡될 수 있어 ‘미기재’로 명시</div></div>
+        <div class="info-row"><span class="label-cell">채택 기준</span><div class="info-value">별도 API 키 없이 재현 가능한 결과물을 위해<br>LLM 직접 분류 대신 키워드 우선순위 규칙을 사용</div></div>
+        <div class="info-row"><span class="label-cell">직접 판단</span><div class="info-value">분류 우선순위, 우선순위 산정식, 경계 케이스 처리 기준은<br>직접 설계하고 검토</div></div>
+      </div>
+    </div>
+  </div>
+</section></div></div>
+
+<!-- 04 Blocker -->
+<div class="frame"><div class="scale"><section class="slide">
+  <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">04</div></div>
+  <div class="section-title"><span class="section-num">04</span><span class="section-name">막혔던 지점 — 실제로 깨지는 지점을 찾아 수정</span></div>
+  <p class="lead">단순히 화면을 완성하는 데서 끝내지 않고, 오염 데이터를 넣어 운영 중 발생할 수 있는 오류를 확인했습니다.</p>
+  <div class="grid-2" style="align-items:center;">
+    <div class="card blue" style="padding:46px 52px;">
+      <div class="pill">스트레스 테스트 결과</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:42px;">
+        <div class="metric"><div class="metric-label">오염 데이터 1</div><div class="metric-value">65 → 60건</div></div>
+        <div class="metric"><div class="metric-label">오염 데이터 2</div><div class="metric-value">60 → 59건</div></div>
+        <div class="metric blue"><div class="metric-label">발견 버그</div><div class="metric-value">2건</div></div>
+        <div class="metric blue"><div class="metric-label">원본 회귀</div><div class="metric-value">0건</div></div>
+      </div>
+    </div>
+    <div class="card" style="padding:44px 48px;">
+      <div class="info-row"><span class="label-cell">중복 오탐</span><div class="info-value">content가 빈 값인 행들이 서로 중복으로 삭제되는 문제<br>발견 → 빈 값은 중복 판정에서 제외하도록 수정</div></div>
+      <div class="info-row"><span class="label-cell">XSS 취약점</span><div class="info-value">VoC 원문에 &lt;script&gt; 태그가 들어왔을 때<br>화면에 삽입될 수 있는 경로를 확인하고,<br>표·문단·카드에 escape 처리를 적용</div></div>
+      <div class="info-row"><span class="label-cell">검증 방식</span><div class="info-value">수정 후 원본 44건 결과에 회귀가 없는지 다시 실행해 확인</div></div>
+    </div>
+  </div>
+</section></div></div>
+
+<!-- 05 Output -->
+<div class="frame"><div class="scale"><section class="slide">
+  <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">05</div></div>
+  <div class="section-title"><span class="section-num">05</span><span class="section-name">산출물 & 실증 — VoC 운영 대시보드 배포</span></div>
+  <p class="lead">기술 구현 방식보다 “어떤 일을 대신해 주는가”를 먼저 확인할 수 있도록 구성했습니다.</p>
+  <div class="grid-2" style="grid-template-columns:1.25fr .9fr;gap:44px;">
+    <div>
+      <div class="dashboard-mock">
+        <div class="mock-title">CarbonLink VoC 운영 대시보드</div>
+        <div class="mock-cards">
+          <div class="mock-card"><div class="mock-label">즉시 대응</div><div class="mock-value red">6건</div></div>
+          <div class="mock-card"><div class="mock-label">총 유입 VoC</div><div class="mock-value">44건</div></div>
+          <div class="mock-card"><div class="mock-label">이탈 위험</div><div class="mock-value">3건</div></div>
+        </div>
+        <div style="width:78%;height:26px;background:#DFF3FD;border-radius:999px;margin:12px 0 16px;"></div>
+        <div style="width:62%;height:26px;background:#EFF9FE;border-radius:999px;margin-bottom:32px;"></div>
+        <a class="mock-link" href="https://ax-hackathon-renewearth-lab.streamlit.app" target="_blank" rel="noopener" style="text-decoration:none;">ax-hackathon-renewearth-lab.streamlit.app</a>
+      </div>
+      <div class="note-bar" style="margin-top:22px;"><strong>결과물:</strong> 분류표, 유형별 집계, 인사이트 5개, 주간 리포트, 제품 기획안 2건, 구글시트용 파일</div>
+    </div>
+    <div class="card" style="padding:36px 42px;">
+      <div class="pill" style="margin-bottom:26px;">실제 동작 한 사이클</div>
+      <div class="flow-step"><span class="num-badge">입력</span><p>VoC CSV 한 장<br><span style="font-size:19px;color:#777;">id·날짜·채널·고객 유형·문의 내용·키워드</span></p></div>
+      <div class="flow-step"><span class="num-badge">처리</span><p>날짜 형식 통일, 결측·중복 정리, 4유형 분류, 긴급도 산정,<br>인사이트·기획안 생성을 자동 수행</p></div>
+      <div class="flow-step"><span class="num-badge">결과</span><p>CS 대응 우선순위와 제품 개선 과제가 함께 보이는<br>운영 리포트 생성</p></div>
+    </div>
+  </div>
+</section></div></div>
+
+<!-- 06 Impact -->
+<div class="frame"><div class="scale"><section class="slide">
+  <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">06</div></div>
+  <div class="section-title"><span class="section-num">06</span><span class="section-name">비즈니스 임팩트</span></div>
+  <p class="lead">수동 정리 시간을 줄이는 것뿐 아니라, CS 대응과 제품 개선 의사결정에 바로 연결되도록 설계했습니다.</p>
+  <div class="grid-2" style="grid-template-columns:1.32fr .9fr;gap:42px;">
+    <div>
+      <table class="impact-table">
+        <thead><tr><th>핵심 지표</th><th>Before</th><th>After</th></tr></thead>
+        <tbody>
+          <tr><td>주간 인사이트 정리 시간</td><td>수동 1~2시간/주 추정</td><td>CSV 업로드 후 즉시 생성</td></tr>
+          <tr><td>VoC 45건 처리</td><td>CS 수작업 분류</td><td>44건 자동 분류<br><span style="font-size:18px;">불만12·요청11·칭찬8·문의13</span></td></tr>
+          <tr><td>오염 데이터 대응력</td><td>검증 안 됨</td><td>2세트 무크래시 검증</td></tr>
+          <tr><td>실제 발견·수정 버그</td><td>0건</td><td>2건 발견 후 수정</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:17px;line-height:1.6;color:#9A9A9C;font-weight:600;margin:18px 0 0;">* Before 수치는 문제 원문의 가상 시나리오와 수동 업무 가정 기준이며, After 수치는 실제 파이프라인 재실행 결과 기준입니다.</p>
+    </div>
+    <div class="card" style="padding:40px 42px;">
+      <div class="pill" style="margin-bottom:30px;">정성 효과</div>
+      <div class="check"><span>✓</span><p>신규 CS 담당자가 규제 맥락을 몰라도 분류 기준 문서와<br>리포트로 온보딩 가능</p></div>
+      <div class="check"><span>✓</span><p>제품팀이 정성적 판단에만 의존하지 않고,<br>VoC 건수와 우선순위 점수를 기준으로 백로그 검토 가능</p></div>
+      <div class="check"><span>✓</span><p>고긴급 불만과 이탈 위험 신호를 상단에 노출해 조기 대응</p></div>
+    </div>
+  </div>
+</section></div></div>
+
+<!-- 07 Future -->
+<div class="frame"><div class="scale"><section class="slide">
+  <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">07</div></div>
+  <div class="section-title"><span class="section-num">07</span><span class="section-name">적용 가능성 & 아쉬움 & 확장 방향</span></div>
+  <p class="lead">실제 운영 적용 시 필요한 조건과 다음 개선 방향을 명확히 분리했습니다.</p>
+  <div class="grid-3">
+    <div class="card"><div class="pill">적용 조건</div><p class="card-text" style="margin-top:32px;">실제 이메일·채널톡 API 연동 필요<br>→ 현재는 CSV 업로드 기준으로 구현</p><p class="card-text" style="margin-top:22px;">분류 사유와 인사이트 문장 품질을 높이기 위해서는<br>LLM API 연동 필요</p></div>
+    <div class="card blue"><div class="pill">아쉬운 점</div><p class="card-text" style="margin-top:32px;">Rule-based 분류라 문맥을 완전히 이해하기에 어려움<br>가드 규칙으로 일부 오분류를 줄였지만 한계 존재</p><p class="card-text" style="margin-top:22px;">구글시트 자동 입력은 서비스 계정 설정이 필요한<br>선택 연동 방식</p></div>
+    <div class="card"><div class="pill">추가 고도화 항목</div><p class="card-text" style="margin-top:32px;">LLM 연동으로 분류 사유와 인사이트 문장 품질을 고도화</p><p class="card-text" style="margin-top:22px;">유사도 기반 중복 탐지, SLA 알림, 제품 백로그 자동 생성까지 확장</p></div>
+  </div>
+</section></div></div>
+
+<!-- 08 Closing -->
+<div class="frame"><div class="scale"><section class="slide closing">
+  <div>
+    <div class="cover-label" style="font-size:24px;letter-spacing:.34em;color:#B8B8BA;font-weight:700;margin-bottom:70px;">CLOSING</div>
+    <h1>VoC를<br><span class="blue-text">운영 자산</span>으로 확장하겠습니다</h1>
+    <p>흩어진 고객 문의를 CS 대응 우선순위, 제품 개선 후보,<br>규제 리스크까지 연결되는 주간 운영 체계로 발전시키겠습니다.</p>
+    <p>결측·중복·보안 이슈까지 점검하며 실제 운영에서 활용 가능한 흐름으로 검증했습니다.</p>
+    <div class="bottom-contact">Kim Heeseon · 010-4916-5005 · yjdk123@naver.com</div>
+  </div>
+</section></div></div>
+
+<!-- 09 Appendix -->
+<div class="frame"><div class="scale"><section class="slide">
+  <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">09</div></div>
+  <div class="section-title"><span class="section-num">A</span><span class="section-name">별첨 — 기술 & 논리 상세</span></div>
+  <p class="lead">기술 검증이 필요한 경우만 확인할 수 있도록 본문과 분리했습니다.</p>
+  <div class="grid-2" style="grid-template-rows:1fr 1fr;">
+    <div class="card"><span class="num-badge">01</span><div class="card-title">워크플로우 구조</div><p class="card-text">clean.py → classify.py → aggregate.py → insight.py → report.py → product_plan.py 순서<br>run_pipeline.py가 전체 단계를 실행하고, app.py는 동일 로직을 공유</p></div>
+    <div class="card"><span class="num-badge">02</span><div class="card-title">사용 도구</div><p class="card-text">Claude Code로 파이프라인 작성·실행·검증을 지원받고, Streamlit으로 대시보드를 구성<br>pandas는 데이터 처리, gspread는 선택적 구글시트 연동에 사용</p></div>
+    <div class="card"><span class="num-badge">03</span><div class="card-title">데이터 처리</div><p class="card-text">날짜 형식 정규화, 결측 플래그 분리, 빈 값을 제외한 content 중복 제거,<br>불만>요청>칭찬>문의 우선순위 분류, urgency·customer_impact 산정을 수행</p></div>
+    <div class="card"><span class="num-badge">04</span><div class="card-title">추가 테스트</div><p class="card-text">오염 데이터 2세트를 크래시 없이 통과했고, 원본 44건 결과 회귀 여부를 재확인<br>content 빈 값 중복 오탐과 unsafe HTML 경로 문제를 수정</p></div>
+  </div>
+</section></div></div>
+
+</div>
+<script>
+(function(){
+  function fitDeck(){
+    document.querySelectorAll('.frame').forEach(function(f){
+      var s = f.clientWidth / 1920;
+      if(!s || s <= 0){ return; }
+      var scaleEl = f.querySelector('.scale');
+      if(scaleEl){ scaleEl.style.transform = 'scale(' + s + ')'; }
+      f.style.height = (1080 * s) + 'px';
+    });
+  }
+  window.addEventListener('resize', fitDeck);
+  window.addEventListener('load', fitDeck);
+  document.addEventListener('DOMContentLoaded', fitDeck);
+  fitDeck(); setTimeout(fitDeck,50); setTimeout(fitDeck,300); setTimeout(fitDeck,1000);
+})();
+</script>
+</body>
+</html>
