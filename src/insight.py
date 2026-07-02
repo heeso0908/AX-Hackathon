@@ -51,7 +51,7 @@ TOPIC_BUSINESS_MEANING = {
 }
 DEFAULT_TOPIC_BUSINESS_MEANING = (
     "동일 topic에서 개선 요구가 반복되는 것은 개별 요청이 아니라 구조적 제품 갭일 가능성이 높다.",
-    "해당 topic의 VoC를 모아 제품 백로그에 하나의 개선 과제로 등록하고 우선순위를 재평가한다.",
+    "해당 topic의 VoC를 모아 제품 개선 후보 목록에 하나의 개선 과제로 등록하고 우선순위를 재평가한다.",
 )
 
 

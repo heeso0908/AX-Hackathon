@@ -83,7 +83,10 @@
       "Bash(git push *)",
       "Bash(tasklist)",
       "Bash(rm -f .git/index.lock)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(node -e ' *)",
+      "Bash(npm init *)",
+      "Bash(node -e \"const {chromium}=require\\('playwright'\\); console.log\\(chromium.executablePath\\(\\)\\)\")"
     ],
     "additionalDirectories": [
       "\\tmp"

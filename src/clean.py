@@ -242,7 +242,7 @@ def write_data_quality_log(raw_df: pd.DataFrame, clean_df: pd.DataFrame, quality
         (
             "channel 결측",
             len(quality_summary["channel_missing_ids"]),
-            f"'{CHANNEL_MISSING_FILL}'로 채움 (해당 id: {', '.join(quality_summary['channel_missing_ids']) or '없음'})",
+            f"최빈 채널 대체 없이 '{CHANNEL_MISSING_FILL}'로 명시, 별도 카테고리 유지 (해당 id: {', '.join(quality_summary['channel_missing_ids']) or '없음'})",
         ),
         (
             "customer_type 결측",
@@ -334,7 +334,7 @@ def write_data_quality_log(raw_df: pd.DataFrame, clean_df: pd.DataFrame, quality
   - 처리: 연도 표기가 없는 `M월 D일` 형식은 기본 연도(2026)를 적용해 `date_clean`에 정규화했다.
 
 - **채널 결측**: {len(quality_summary['channel_missing_ids'])}건 (id: {', '.join(quality_summary['channel_missing_ids']) or '없음'})
-  - 처리: 임의 채널로 추정하지 않고 '{CHANNEL_MISSING_FILL}'로 명시적으로 표시했다.
+  - 처리: 최빈 채널로 대체하지 않고 '{CHANNEL_MISSING_FILL}'로 명시해 별도 카테고리로 유지했다.
 
 - **중복 행**:
 {dup_detail}
@@ -395,4 +395,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

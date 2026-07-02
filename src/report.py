@@ -130,7 +130,7 @@ def _render_data_quality_summary(quality_summary: dict) -> str:
         f"- 중복 제거: {removed}건 (content 완전 중복 → 최초 접수 건만 유지)\n"
         f"- 날짜 표준화: {mixed}건을 YYYY-MM-DD로 통일 (slash {fmt_counts.get('slash', 0)}건, "
         f"한글 표기 {fmt_counts.get('korean', 0)}건)\n"
-        f"- 채널 결측 처리: {channel_missing}건 → '미기재'로 채움\n"
+        f"- 채널 결측 처리: {channel_missing}건 → 최빈 채널 대체 없이 '미기재'로 명시, 별도 카테고리 유지\n"
         f"- 분석 대상 최종 행 수: {after}건"
     )
 
@@ -336,7 +336,7 @@ def render_voc_report(context: dict) -> str:
         "## 5. 탄소규제 맥락 인사이트 3개\n" + _render_three_insights(context["insights"]),
         "## 6. 의사결정 로그 요약\n" + _render_decision_log_summary(),
         "## 7. 주요 Topic 및 규제 Context\n" + _render_topic_regulation(summary),
-        "## 8. CS 우선 대응 Queue\n" + _render_cs_queue(summary),
+        "## 8. CS 우선 대응 목록\n" + _render_cs_queue(summary),
         "## 9. 제품팀 전달 후보\n" + _render_product_candidates(summary),
         "## 10. FAQ/가이드 콘텐츠 후보\n" + _render_faq_candidates(summary),
         "## 11. 비즈니스 인사이트\n" + _render_business_insights(context["insights"]),
