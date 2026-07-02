@@ -95,10 +95,14 @@
   .mock-link{font-size:21px;font-weight:700;color:#6A6A6D;word-break:break-all;text-align:center;}
   .footer-strip{position:absolute;left:92px;right:92px;bottom:54px;background:#F5F5F5;border-radius:10px;padding:19px 34px;display:flex;gap:36px;align-items:center;font-size:18px;color:#555;z-index:2;}
   .footer-strip strong{font-size:19px;color:#3D3D3F;}
-  .level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
-  .level-card{background:#fff;border:2px solid var(--card-line);border-radius:20px;padding:16px 18px;min-height:250px;}
+  .summary-links{margin:8px 22px 0;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .summary-link-card{background:#F5F5F5;border:2px solid #E3E6E8;border-radius:12px;padding:12px 16px;min-height:68px;display:flex;flex-direction:column;justify-content:center;}
+  .summary-link-label{font-size:16px;font-weight:800;color:#6A6A6D;margin-bottom:6px;letter-spacing:.02em;}
+  .summary-link-url{font-size:16px;font-weight:700;color:#1DAC86;word-break:break-all;text-decoration:none;line-height:1.32;}
+  .level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;}
+  .level-card{background:#fff;border:2px solid var(--card-line);border-radius:20px;padding:14px 16px;min-height:212px;}
   .level-card .mini-pill{margin-bottom:14px;}
-  .level-card ul{margin:0;padding-left:20px;font-size:17px;line-height:1.56;color:#555;font-weight:600;}
+  .level-card ul{margin:0;padding-left:18px;font-size:16px;line-height:1.46;color:#555;font-weight:600;}
   .proposal-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   .proposal-card{background:#fff;border:3px solid var(--card-line);border-radius:22px;padding:20px 22px;}
   .proposal-badge{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:7px 16px;background:#EDFCF6;color:#1DAC86;font-size:17px;font-weight:800;margin-bottom:10px;}
@@ -148,14 +152,14 @@
 <div class="frame"><div class="scale"><section class="slide">
   <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">01</div></div>
   <div class="section-title"><span class="section-num">01</span><span class="section-name">한 장 요약</span></div>
-  <p class="lead" style="margin-bottom:24px;">이번 결과물의 핵심은 VoC 분류 자동화 자체가 아니라, 흩어진 고객 문의를 CS 우선 대응과 제품 개선 의사결정으로 바로 이어지게 만든 운영 기준입니다.</p>
+  <p class="lead" style="margin-bottom:18px;">이번 결과물의 핵심은 담당자가 바뀌어도 같은 기준으로 문의를 분류하고, 우선 대응과 제품팀 전달까지 바로 이어갈 수 있게 만든 운영 자동화 기준입니다.</p>
   <div class="grid-2" style="align-items:stretch;">
-    <div class="card" style="padding:32px 36px 28px;align-self:start;">
+    <div class="card" style="padding:28px 32px 24px;align-self:start;">
       <div class="pill">문제 · 판단 · 결과</div>
-      <div class="check" style="margin-top:24px;"><span>1</span><p style="font-size:21px;line-height:1.5;"><strong>문제:</strong> VoC가 흩어져 들어오고 CS가 수작업으로 정리해, 반복 문의와 규제 리스크 신호가 제품팀 의사결정으로 바로 이어지지 않음</p></div>
-      <div class="check"><span>2</span><p style="font-size:21px;line-height:1.5;"><strong>판단:</strong> 단순 분류 리포트 1회 제출보다, 새 CSV만 넣으면 같은 기준으로 다시 돌릴 수 있는 운영 파이프라인이 실무 가치가 더 큼</p></div>
-      <div class="check" style="margin-bottom:0;"><span>3</span><p style="font-size:21px;line-height:1.5;"><strong>결과:</strong> 주간 리포트, CS 우선 대응 목록, 제품 개선 기획안 2건 초안, 대시보드까지 한 번에 재생성되는 구조 구현</p></div>
-      <div class="level-grid" style="margin-top:24px;">
+      <div class="check" style="margin-top:18px;margin-bottom:14px;"><span>1</span><p style="font-size:20px;line-height:1.42;"><strong>문제:</strong> 담당자가 바뀌면 문의를 같은 기준으로 정리하고, 긴급 건과 반복 건을 빠르게 구분할 운영 기준이 흔들리기 쉬움</p></div>
+      <div class="check" style="margin-bottom:14px;"><span>2</span><p style="font-size:20px;line-height:1.42;"><strong>판단:</strong> 리포트 1회 제출보다, 새 CSV만 넣으면 같은 기준으로 다시 돌릴 수 있는 자동화 파이프라인이 실무 효율에 더 직접적임</p></div>
+      <div class="check" style="margin-bottom:0;"><span>3</span><p style="font-size:20px;line-height:1.42;"><strong>결과:</strong> 주간 리포트, CS 우선 대응 목록, 제품팀 전달용 기획안 초안, 대시보드까지 한 번에 재생성되는 구조 구현</p></div>
+      <div class="level-grid" style="margin-top:18px;">
         <div class="level-card">
           <div class="mini-pill">Basic</div>
           <ul>
@@ -183,25 +187,27 @@
       </div>
     </div>
     <div style="display:grid;grid-template-rows:.82fr 1fr;gap:18px;">
-      <div class="card blue" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 28px;">
+      <div class="card blue" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px 24px;">
         <div style="font-size:23px;font-weight:800;color:#1DAC86;margin-bottom:10px;">핵심 임팩트</div>
         <div style="font-size:52px;font-weight:900;color:#1DAC86;letter-spacing:-.04em;line-height:1.05;">1~2시간 → 1회 실행</div>
-        <div style="font-size:21px;font-weight:800;color:#3A3A3C;margin-top:12px;line-height:1.45;">주간 인사이트 정리와 제품팀 전달용 초안 작성을 CSV 업로드 후 즉시 생성 가능한 흐름으로 전환</div>
+        <div style="font-size:20px;font-weight:800;color:#3A3A3C;margin-top:10px;line-height:1.38;">주간 인사이트 정리와 제품팀 전달용 초안 작성을 CSV 업로드 후 즉시 생성 가능한 흐름으로 전환</div>
       </div>
-      <div class="card" style="padding:22px 28px;">
+      <div class="card" style="padding:20px 24px;">
         <div class="pill" style="margin-bottom:14px;">이 프로젝트에서 보여준 것</div>
-        <div class="check" style="margin-bottom:14px;"><span>✓</span><p style="font-size:21px;line-height:1.45;">과제를 그대로 수행한 것이 아니라 운영 문제로 재정의</p></div>
-        <div class="check" style="margin-bottom:14px;"><span>✓</span><p style="font-size:21px;line-height:1.45;">데이터 정제 기준, 분류 방식, 우선순위 로직을 직접 결정하고 문서화</p></div>
-        <div class="check" style="margin-bottom:14px;"><span>✓</span><p style="font-size:21px;line-height:1.45;">비정상 입력 테스트와 버그 수정까지 포함해 운영 가능성 검증</p></div>
-        <div class="note-bar" style="margin-top:6px;display:flex;align-items:center;gap:16px;padding:16px 20px;font-size:18px;">
-          <span style="font-size:30px;color:var(--blue-dark);">→</span>
-          <div><strong>데모 링크</strong><br><a href="https://ax-hackathon-renewearth-lab.streamlit.app" target="_blank" rel="noopener" style="color:#1DAC86;word-break:break-all;text-decoration:none;font-size:18px;">ax-hackathon-renewearth-lab.streamlit.app</a></div>
-        </div>
-        <div class="note-bar" style="margin-top:10px;display:flex;align-items:center;gap:16px;padding:16px 20px;font-size:18px;">
-          <span style="font-size:30px;color:var(--blue-dark);">→</span>
-          <div><strong>Basic 과제 링크</strong><br><a href="https://www.notion.so/VoC-Basic-2026-07-01-565b7c2411dc4275bfe606a80323b856?source=copy_link" target="_blank" rel="noopener" style="color:#1DAC86;word-break:break-all;text-decoration:none;font-size:18px;">notion.so/VoC-Basic-2026-07-01-565b7c2411dc4275bfe606a80323b856</a></div>
-        </div>
+        <div class="check" style="margin-bottom:10px;"><span>✓</span><p style="font-size:20px;line-height:1.38;">누가 맡아도 바로 따라 쓸 수 있게 분류 기준과 우선순위 기준을 문서화</p></div>
+        <div class="check" style="margin-bottom:10px;"><span>✓</span><p style="font-size:20px;line-height:1.38;">반복 문의를 FAQ 후보와 제품 개선 후보로 분리해 수작업 응대를 줄이는 구조 설계</p></div>
+        <div class="check" style="margin-bottom:4px;"><span>✓</span><p style="font-size:20px;line-height:1.38;">비정상 입력 테스트와 버그 수정까지 포함해 실제 운영 가능성 검증</p></div>
       </div>
+    </div>
+  </div>
+  <div class="summary-links">
+    <div class="summary-link-card">
+      <div class="summary-link-label">데모 링크</div>
+      <a class="summary-link-url" href="https://ax-hackathon-renewearth-lab.streamlit.app" target="_blank" rel="noopener">ax-hackathon-renewearth-lab.streamlit.app</a>
+    </div>
+    <div class="summary-link-card">
+      <div class="summary-link-label">Basic 과제 링크</div>
+      <a class="summary-link-url" href="https://www.notion.so/VoC-Basic-2026-07-01-565b7c2411dc4275bfe606a80323b856?source=copy_link" target="_blank" rel="noopener">notion.so/VoC-Basic-2026-07-01-565b7c2411dc4275bfe606a80323b856</a>
     </div>
   </div>
 </section></div></div>
@@ -209,13 +215,13 @@
 <!-- 02 Problem -->
 <div class="frame"><div class="scale"><section class="slide">
   <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">02</div></div>
-  <div class="section-title"><span class="section-num">02</span><span class="section-name">문제 정의 - 분류가 아니라 운영 의사결정의 단절</span></div>
-  <p class="lead">과제의 핵심을 "인사이트 3개 작성"이 아니라, 매주 반복되는 VoC가 CS 대응, 규제 리스크 판단, 제품팀 전달로 이어지지 못하는 운영 단절 문제로 재정의했습니다.</p>
+  <div class="section-title"><span class="section-num">02</span><span class="section-name">문제 정의 - 누구나 바로 쓸 수 있는 운영 기준 만들기</span></div>
+  <p class="lead">과제의 핵심을 "인사이트 3개 작성"이 아니라, 담당자가 달라도 매주 반복되는 VoC를 같은 기준으로 분류하고 우선 대응, 규제 리스크 판단, 제품팀 전달까지 이어갈 수 있게 만드는<br>문제로 재정의했습니다.</p>
   <div class="grid-4">
     <div class="card"><span class="num-badge">01</span><div class="card-title">기업 제시 문제</div><p class="card-text">이메일·미팅·메신저로 들어오는 VoC<br>분산, 수작업 정리 중심, 유형별 현황<br>파악과 의사결정 활용 어려움</p></div>
-    <div class="card"><span class="num-badge">02</span><div class="card-title">재정의한 문제</div><p class="card-text">CS 담당자 숙련도와 무관하게 같은 기준으로 분류하고, 반복 문의를 규제 리스크 신호와 제품 개선 후보로 연결하는 체계 부재</p></div>
-    <div class="card"><span class="num-badge">03</span><div class="card-title">사업상 영향</div><p class="card-text">긴급 불만 우선 대응 지연, 제품팀 전달 기준 불명확, 규제 제출·협력사 데이터 수집 관련 반복 문의가 운영 비용으로 누적</p></div>
-    <div class="card"><span class="num-badge">04</span><div class="card-title">내 목표</div><p class="card-text">리포트 한 장이 아니라 새 CSV만 들어오면 같은 기준으로 재실행되는 파이프라인을 만들어, CS·제품팀·리더가 같은 데이터로 판단하도록 설계</p></div>
+    <div class="card"><span class="num-badge">02</span><div class="card-title">재정의한 문제</div><p class="card-text">숙련도와 무관하게 같은 기준으로 분류하고, 반복 문의를 우선 대응·FAQ 후보·제품 개선 후보로 나눌 운영 기준이 필요</p></div>
+    <div class="card"><span class="num-badge">03</span><div class="card-title">업무상 영향</div><p class="card-text">긴급 문의 선별이 늦어지고, 같은 설명을 반복하며, 제품팀 전달 기준이 흐려져 규제 제출·협력사 데이터 수집 문의가 운영 비용으로 누적</p></div>
+    <div class="card"><span class="num-badge">04</span><div class="card-title">수행 목표</div><p class="card-text">새 CSV만 들어오면 같은 기준으로 재실행되는 파이프라인을 만들어, 누가 맡아도 바로 업무를 이어받고 CS·제품팀·리더가 같은 데이터로 판단하도록 설계</p></div>
   </div>
 </section></div></div>
 
@@ -230,16 +236,16 @@
       <div class="card">
         <div class="flow-step"><span class="num-badge">01</span><p>VoC CSV 업로드 후 날짜·결측·중복을 먼저 정제</p></div>
         <div class="flow-step"><span class="num-badge">02</span><p>불만 → 요청 → 칭찬 → 문의 우선순위로 4유형 분류</p></div>
-        <div class="flow-step"><span class="num-badge">03</span><p>긴급도와 고객 영향도를 함께 산정해 CS 우선 대응 목록 생성</p></div>
+        <div class="flow-step"><span class="num-badge">03</span><p>긴급도와 고객 영향도를 함께 산정해 누구나 바로 쓸 수 있는 CS 우선 대응 목록 생성</p></div>
         <div class="flow-step"><span class="num-badge">04</span><p>리포트와 제품 개선 기획안까지 이어지는 동일 기준 산출물 생성</p></div>
       </div>
     </div>
     <div>
-      <div class="pill" style="margin-left:20px;margin-bottom:28px;">버린 대안과 채택 기준</div>
+      <div class="pill" style="margin-left:20px;margin-bottom:28px;">수행 과정</div>
       <div class="card" style="padding:32px 42px;">
         <div class="info-row"><span class="label-cell">분류 방식</span><div class="info-value">LLM 즉시 분류 대신 규칙 기반 분류를 먼저 채택<br><span style="font-size:19px;color:#7D7D80;">이유: 별도 API 키 없이도 재현 가능하고, 심사·실행 환경에서 같은 결과를 보장해야 했기 때문</span></div></div>
         <div class="info-row"><span class="label-cell">결측 처리</span><div class="info-value">채널 결측은 최빈 채널로 대체하지 않고 `미기재`로 유지<br><span style="font-size:19px;color:#7D7D80;">이유: 채널 분포 왜곡을 막고, 데이터 품질 이슈 자체를 별도 신호로 보존하기 위해</span></div></div>
-        <div class="info-row"><span class="label-cell">산출물 범위</span><div class="info-value">단순 분류표에서 멈추지 않고 CS 우선 대응과 제품 개선 후보까지 연결<br><span style="font-size:19px;color:#7D7D80;">이유: 실무에서는 분류보다 다음 액션으로 이어지는 출력이 더 중요하다고 판단</span></div></div>
+        <div class="info-row"><span class="label-cell">산출물 범위</span><div class="info-value">단순 분류표에서 멈추지 않고 CS 우선 대응, FAQ 후보, 제품 개선 후보까지 연결<br><span style="font-size:19px;color:#7D7D80;">이유: 누구나 바로 다음 액션을 실행할 수 있는 출력이 더 중요하다고 판단</span></div></div>
       </div>
     </div>
   </div>
@@ -262,7 +268,7 @@
     </div>
     <div class="card" style="padding:40px 44px;">
       <div class="info-row"><span class="label-cell">중복 삭제 수정</span><div class="info-value">content 빈 행 간 중복 삭제 문제 발견, 빈 값의 중복 판정<br>제외</div></div>
-      <div class="info-row"><span class="label-cell">스크립트<br>실행 방지</span><div class="info-value">VoC 원문에 <span class="inline-code">script</span> 태그가 들어와도 화면에서 실행되지 않도록 처리</div></div>
+      <div class="info-row"><span class="label-cell">악성 코드 차단</span><div class="info-value">고객 VoC에 해킹 코드가 섞여도 실행되지 않게 막음</div></div>
       <div class="info-row"><span class="label-cell">기존 결과<br>유지 확인</span><div class="info-value">수정 후에도 원본 44건 분류 결과가 바뀌지 않는지 재실행해 확인</div></div>
     </div>
   </div>
@@ -293,19 +299,18 @@
           <p class="card-text"><strong>의미:</strong> CS 인력 증원보다 셀프가이드와 제출 체크리스트가 더 직접적인 효율 개선 수단</p>
         </div>
       </div>
-      <div class="note-bar" style="margin-top:20px;"><strong>요점:</strong> 이 프로젝트의 핵심 가치는 “무슨 유형이 몇 건인지”보다 “어디에 운영·제품 대응을 집중해야 하는지”를 읽어낸 데 있습니다.</div>
     </div>
     <div style="display:grid;grid-template-rows:auto auto;gap:12px;">
       <div class="card" style="padding:24px 28px;">
         <div class="pill" style="margin-bottom:18px;">인사이트에서 액션으로</div>
-        <div class="flow-step"><span class="num-badge">CS</span><p>CBAM 제출/반려 관련 긴급 문의를 우선 대응 목록으로 별도 확인</p></div>
+        <div class="flow-step"><span class="num-badge">CS</span><p>CBAM 제출/반려 관련 긴급 문의를 우선 대응 목록으로 바로 확인</p></div>
         <div class="flow-step"><span class="num-badge">제품</span><p>Scope 3 협력사 데이터 수집 병목을 개선 과제 후보로 분리</p></div>
         <div class="flow-step"><span class="num-badge">리더</span><p>규제 문의 급증을 단순 VOC 증가가 아닌 사업 리스크 신호로 해석</p></div>
       </div>
       <div class="card blue" style="padding:22px 26px;">
-        <div class="pill" style="margin-bottom:14px;">왜 의미 있었나</div>
-        <div class="check" style="margin-bottom:12px;"><span>✓</span><p style="font-size:21px;line-height:1.42;">분류 결과가 사람별 감각이 아니라 같은 기준으로 재생산됨</p></div>
-        <div class="check" style="margin-bottom:0;"><span>✓</span><p style="font-size:21px;line-height:1.42;">CS 응대, 제품 개선, 리더 의사결정이 하나의 데이터 흐름으로 연결됨</p></div>
+        <div class="pill" style="margin-bottom:14px;">실무 적용 포인트</div>
+        <div class="check" style="margin-bottom:12px;"><span>✓</span><p style="font-size:21px;line-height:1.42;">분류 결과가 사람별 감각이 아니라 담당자가 달라도 같은 기준으로 재생산 가능</p></div>
+        <div class="check" style="margin-bottom:0;"><span>✓</span><p style="font-size:21px;line-height:1.42;">CS 응대, FAQ 후보 정리, 제품 개선, 리더 의사결정이 하나의 데이터 흐름으로 연결</p></div>
       </div>
     </div>
   </div>
@@ -321,23 +326,23 @@
       <div class="pill" style="margin-bottom:18px;">제품팀 검토용 기획안 2건</div>
       <div class="proposal-card" style="margin-bottom:16px;">
         <div class="proposal-badge">P0</div>
-        <div class="card-title">CBAM 보고서 제출 리스크 대응 패키지</div>
-        <p class="card-text"><strong>문제:</strong> CBAM 보고서 양식, 제출 기한, 반려 관련 문의·불만 반복</p>
-        <p class="card-text"><strong>개선:</strong> 최신 양식 체크리스트, 제출 전 검증 항목, FAQ 자동 연결</p>
+        <div class="card-title">CBAM 신고·인증서 제출 어시스턴트</div>
+        <p class="card-text"><strong>문제:</strong> 신고 기한, 인증서 구매 절차, EU 세관 제출 양식 관련 문의·불만 반복</p>
+        <p class="card-text"><strong>개선:</strong> 단계별 체크리스트, 제출 전 검증 항목, 반려 가능성 사전 경고 제공</p>
         <p class="card-text"><strong>기대 효과:</strong> CS 반복 응대 감소, 고객 제출 리스크 감소</p>
       </div>
       <div class="proposal-card">
         <div class="proposal-badge">P1</div>
-        <div class="card-title">Scope 3 협력사 데이터 수집 현황 관리</div>
-        <p class="card-text"><strong>문제:</strong> 협력사 응답률 저하, 데이터 누락, 수동 입력 불편 반복</p>
-        <p class="card-text"><strong>개선:</strong> 협력사별 요청·응답·미응답 상태 목록 제공</p>
-        <p class="card-text"><strong>기대 효과:</strong> 제품팀 개선 과제 후보와 CS 대응 우선순위 연결</p>
+        <div class="card-title">계산 로직 투명성·검증 강화</div>
+        <p class="card-text"><strong>문제:</strong> 계산 결과 차이, 계산 근거 불명확, 인증 제출용 내보내기 실패 관련 불만 반복</p>
+        <p class="card-text"><strong>개선:</strong> 계산 근거 상세 화면, 차이 탐지 알림, 인증 제출용 내보내기 가이드 제공</p>
+        <p class="card-text"><strong>기대 효과:</strong> 계산 신뢰성 문의 감소, 검증·인증 대응 시간 단축</p>
       </div>
     </div>
     <div style="display:grid;grid-template-rows:auto auto;gap:18px;">
       <div class="card" style="padding:28px 32px;">
         <div class="pill" style="margin-bottom:18px;">선정 이유</div>
-        <div class="check"><span>✓</span><p>규제 제출 리스크와 협력사 데이터 수집 병목의 CS 반복 문의와 제품 개선 필요<br>동시 발생</p></div>
+        <div class="check"><span>✓</span><p>규제 제출 리스크와 계산 신뢰성 이슈가 모두 반복 VoC로 확인돼 제품 개선 필요가 명확함</p></div>
         <div class="check"><span>✓</span><p>CS팀의 반복 수동 설명을 제품 기능 또는 운영 가이드로 축소 가능</p></div>
         <div class="check"><span>✓</span><p>기획안의 자동 생성 초안 기준 정리, 제품팀 개선 과제 검토 후보 전달 수준</p></div>
       </div>
@@ -372,7 +377,7 @@
       <div class="user-grid">
         <div class="user-card">
           <div class="card-title">CS팀</div>
-          <p class="card-text">긴급도 높은 VoC 우선 확인, 반복 문의의 FAQ 후보 전환</p>
+          <p class="card-text">긴급도 높은 VoC 우선 확인, 반복 문의의 FAQ 후보 전환, 온보딩과<br>인수인계 기준으로 활용</p>
         </div>
         <div class="user-card">
           <div class="card-title">제품팀</div>
@@ -391,10 +396,10 @@
 <div class="frame"><div class="scale"><section class="slide">
   <div class="topline"><div class="doc-label">AX HACKATHON</div><div class="page-no">08</div></div>
   <div class="section-title"><span class="section-num">08</span><span class="section-name">현재 한계와 다음 단계</span></div>
-  <p class="lead">현재 버전의 장점과 다음 단계 고도화를 분리해, 실제 운영 적용 조건을 명확하게 보여줍니다.</p>
+  <p class="lead">지금 버전에서 잘되는 점과 앞으로 다듬을 점을 나눠서, 실제 도입 조건을 분명하게 짚었습니다.</p>
   <div class="grid-3">
     <div class="card"><div class="pill">현재 버전</div><p class="card-text" style="margin-top:32px;">별도 API 키 없이 재현 가능<br>동일 CSV 구조 기준 즉시 재실행 가능</p><p class="card-text" style="margin-top:22px;">분류 기준과 예외 처리의 <span class="inline-code">decisions.md</span> 문서화,<br>운영 기준 공유</p></div>
-    <div class="card blue"><div class="pill">한계점</div><p class="card-text" style="margin-top:32px;">규칙 기반(Rule-based) 분류의 문맥 완전 이해 한계<br>예외 처리 규칙 기반 일부 오분류 축소, 추가 개선 가능</p><p class="card-text" style="margin-top:22px;">구글시트 연동은 개인 계정 기준으로 구현, 운영 계정 연결은 별도 설정 필요</p></div>
+    <div class="card blue"><div class="pill">한계점</div><p class="card-text" style="margin-top:32px;">규칙 기반(Rule-based) 분류의 문맥 완전 이해 한계<br>예외 처리 규칙 기반 일부 오분류 축소, 추가 개선 가능</p><p class="card-text" style="margin-top:22px;">구글시트 연동은 개인 계정 기준으로 구현, 운영 계정<br>연결은 별도 설정 필요</p></div>
     <div class="card"><div class="pill">다음 단계</div><p class="card-text" style="margin-top:32px;">LLM 연동 기반 문맥 분류와 인사이트 문장 품질 개선</p><p class="card-text" style="margin-top:22px;">실제 이메일·채널톡 API 연동, 응답 기한 알림, 개선 과제 관리 도구 연동까지 확장</p></div>
   </div>
 </section></div></div>
@@ -404,8 +409,8 @@
   <div>
     <div class="cover-label" style="font-size:24px;letter-spacing:.34em;color:#B8B8BA;font-weight:700;margin-bottom:70px;">CLOSING</div>
     <h1>VoC를 <span class="blue-text">반복 활용 가능한</span><br><span class="blue-text">운영 기준</span>으로 만들겠습니다</h1>
-    <p>흩어진 고객 문의를 CS 대응 우선순위, 제품 개선 후보, 규제 리스크 신호로 연결한 주간 운영 체계</p>
-    <p>45건 VoC 기준 정제·분류·집계·인사이트·기획안 생성 자동화, 비정상 입력 테스트로 이슈 점검</p>
+    <p style="max-width:none;white-space:nowrap;font-size:24px;">담당자가 달라도 같은 기준으로 문의를 분류하고, CS 우선 대응과 제품팀 전달까지 바로 이어갈 수 있게 만든 주간 운영 체계</p>
+    <p style="max-width:none;white-space:nowrap;font-size:24px;">45건 VoC 기준 정제·분류·집계·인사이트·기획안 생성을 자동화하고, 비정상 입력 테스트로 실제 운영 가능성까지 점검</p>
     <div class="bottom-contact">김희선 · 010-4916-5005 · yjdk123@naver.com</div>
   </div>
 </section></div></div>
