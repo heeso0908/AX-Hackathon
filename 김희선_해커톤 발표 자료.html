@@ -114,10 +114,10 @@
   .user-card{background:#fff;border:2px solid var(--card-line);border-radius:20px;padding:22px 24px;}
   .user-card .card-title{font-size:24px;margin:0 0 10px;}
   .user-card .card-text{font-size:19px;line-height:1.58;}
-  .formula-card{background:#F6FBF9;border:3px solid #BFE7DA;border-radius:22px;padding:22px 24px;}
-  .formula-label{font-size:18px;font-weight:800;color:#1DAC86;margin-bottom:12px;}
-  .formula-text{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:24px;line-height:1.5;color:#1F3E36;font-weight:800;word-break:break-word;}
-  .inline-code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:#F5F7F8;border-radius:6px;padding:2px 6px;}
+  .formula-card{background:#F6FBF9;border:3px solid #BFE7DA;border-radius:22px;padding:14px 20px;}
+  .formula-label{font-size:18px;font-weight:800;color:#1DAC86;margin-bottom:8px;}
+  .formula-text{font-family:var(--font-family);font-size:24px;line-height:1.35;color:#1F3E36;font-weight:800;word-break:break-word;letter-spacing:-.01em;}
+  .inline-code{font-family:var(--font-family);font-size:.9em;background:#F5F7F8;border-radius:6px;padding:2px 6px;font-weight:700;}
   @media print{
     html,body{background:#fff;}
     .deck{gap:0;padding:0;}
@@ -348,7 +348,7 @@
       </div>
       <div class="formula-card">
         <div class="formula-label">우선순위 산식</div>
-        <div class="formula-text">priority_score =<br>frequency_score + impact_score + urgency_score + regulation_score - effort_score</div>
+        <div class="formula-text">우선순위 점수 =<br>빈도 + 고객 임팩트 + 긴급도 + 규제 관련성 - 구현 난이도</div>
       </div>
     </div>
   </div>
@@ -423,7 +423,7 @@
   <div class="grid-2" style="grid-template-rows:1fr 1fr;">
     <div class="card"><span class="num-badge">01</span><div class="card-title">파이프라인 구조</div><p class="card-text"><span class="inline-code">clean.py</span> → <span class="inline-code">classify.py</span> → <span class="inline-code">aggregate.py</span> → <span class="inline-code">insight.py</span> → <span class="inline-code">report.py</span> → <span class="inline-code">product_plan.py</span> 순서 구성, <span class="inline-code">run_pipeline.py</span>의 전체 실행 담당</p></div>
     <div class="card"><span class="num-badge">02</span><div class="card-title">사용 도구</div><p class="card-text">Claude Code 기반 파이프라인 작성·실행·검증 지원, Streamlit 기반 대시보드 구성<br>pandas 기반 데이터 처리, 구글시트 개인 계정 연동</p></div>
-    <div class="card"><span class="num-badge">03</span><div class="card-title">우선순위 산식</div><p class="card-text"><span class="inline-code">priority_score = frequency_score + impact_score + urgency_score + regulation_score - effort_score</span><br>반복 빈도·고객 영향·긴급도·규제 연관성 가점, 구현 난이도 감점</p></div>
+    <div class="card"><span class="num-badge">03</span><div class="card-title">우선순위 산식</div><p class="card-text"><span class="inline-code">우선순위 점수 = 빈도 + 고객 임팩트 + 긴급도 + 규제 관련성 - 구현 난이도</span><br>반복 빈도·고객 영향·긴급도·규제 연관성 가점, 구현 난이도 감점</p></div>
     <div class="card"><span class="num-badge">04</span><div class="card-title">추가 테스트</div><p class="card-text">비정상 입력 데이터 2세트 오류 없이 통과, 원본 44건 결과 기존 결과 유지 확인<br>content 빈 값 중복 삭제 문제와 unsafe HTML 경로 문제 수정</p></div>
   </div>
 </section></div></div>
